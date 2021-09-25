@@ -18,6 +18,7 @@ D('testausserveri.fi', REG_NONE, DnsProvider(DNS_CLOUDFLARE),
     // If the project is available under the Testausserveri GitHub organization, then just the project name is enough.
     A('ctf', '152.67.67.152'), // TestausCTF - #midnighter
     A('h-challenge', '167.172.167.138', CF_PROXY_OFF), // TestausCTF - #midnighter
+    A('ritta', '158.101.179.92'), // Ritta - rittaschool project/Roni
     CNAME('karhu-fallback', 'mgh2-http.mixu.wtf.'), // Karhu - Mikael
     CNAME('karhu', 'mgh2-http.mixu.wtf.'), // Karhu - Mikael
     CNAME('koira', 'mgh2-http.mixu.wtf.'), // Testauskoira API - Mikael
@@ -33,7 +34,7 @@ D('testausserveri.fi', REG_NONE, DnsProvider(DNS_CLOUDFLARE),
     CNAME('openwilma_js', 'openwilma.github.io.'), // OpenWilma js documentation - https://github.com/OpenWilma/
     CNAME('openwilma', 'openwilma.github.io.'), // OpenWilma - https://github.com/OpenWilma/
     CNAME('tet', 'testausserveri.github.io.'), // TET - Niilas
-
+ 
     // Other
     TXT('_github-challenge-testausserveri', 'f037aa581f'), // GitHub organization challenge
     TXT('@', 'google-site-verification=dAyNoa59zHryHFRXObQTpIqUCRhlWkKLPYJY601w_7c'), // Google site verification
