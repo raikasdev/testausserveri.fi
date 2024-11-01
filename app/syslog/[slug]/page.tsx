@@ -24,9 +24,13 @@ import testausorveli from '@/assets/testausorveli.png';
 import { PostsGrid } from '@/components/PostsGrid/PostsGrid';
 import remarkGfm from 'remark-gfm'
 import { PostFeatured3D } from '@/components/PostFeatured3D/PostFeatured3D';
+import { userAgent } from 'next/server';
+import { headers } from 'next/headers';
 
 export const dynamicParams = false;
+/*
 export const dynamic = 'force-static';
+*/
 
 export async function generateStaticParams() {
     const postsDirectory = path.join(process.cwd(), 'posts');
@@ -93,7 +97,8 @@ async function getPost(slug: string): Promise<Post> {
 export default async function Page({ params }: { params: { slug: string } }) {
     const { postDetails, content } = await getPost(params.slug);
 
-    const isMobile = false;
+    const { device } = userAgent({ headers: headers() });
+    const isMobile = device?.type === "mobile";
 
     const { posts: recentPosts } = await posts.list(3);
 
@@ -111,6 +116,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             image: (String(author._id).startsWith('ts:') ? getMemberAvatarUrl(String(author._id).replace('ts:', '')) : testausorveli)
         }))
     }
+    const hasSpline = postDetails.splineImageUrl && postDetails.splineImagePlaceholderUrl && postDetails.feature_spline;
 
     return (
         <FadeBackground url={postDetails.imagePlaceholder}>
@@ -138,7 +144,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 </div>
                 <p className={styles.excerpt}>{postDetails.excerpt}</p>
                 </Content>
-                {!postDetails.feature_spline || isMobile ?
+                {!hasSpline || isMobile ?
                     <Content wider noMargin>
                         <div className={styles.postImage}>
                             <Image 
@@ -151,11 +157,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
                         </div>
                     </Content>
                 : null}
-                {postDetails.feature_spline && !isMobile ? 
+                {hasSpline && !isMobile ? 
                     <PostFeatured3D 
+                    // @ts-ignore
                     splineURL={postDetails.feature_spline}
-                    placeholderBlurDataURL={postDetails.imagePlaceholder} 
-                    placeholderSrc={postDetails.imageUrl} />
+                    // @ts-ignore
+                    placeholderBlurDataURL={postDetails.splineImagePlaceholderUrl} 
+                    // @ts-ignore
+                    placeholderSrc={postDetails.splineImageUrl} />
                 : null}
                 <Content>
                 <div className={styles.postContent}>

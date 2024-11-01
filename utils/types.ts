@@ -110,7 +110,6 @@ export type PostDetails = {
   title: string;
   category: string;
   feature_image: string;
-  feature_spline?: string;
   excerpt: string;
   authors?: string[];
   authorsResolved?: Member[];
@@ -120,4 +119,10 @@ export type PostDetails = {
   url?: string;
   imagePlaceholder: string;
   imageUrl: string;
+  /* Feature 3D loading image, a still photo */
+  feature_spline_image?: string;
+  /* Feature 3D Spline URL */
+  feature_spline?: string;
+  splineImagePlaceholderUrl?: string | null;
+  splineImageUrl?: string | null;
 };
