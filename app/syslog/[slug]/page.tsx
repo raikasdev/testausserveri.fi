@@ -23,6 +23,7 @@ import { getMemberAvatarUrl } from '@/utils/Member';
 import testausorveli from '@/assets/testausorveli.png';
 import { PostsGrid } from '@/components/PostsGrid/PostsGrid';
 import remarkGfm from 'remark-gfm'
+import { PostFeatured3D } from '@/components/PostFeatured3D/PostFeatured3D';
 
 export const dynamicParams = false;
 export const dynamic = 'force-static';
@@ -92,6 +93,8 @@ async function getPost(slug: string): Promise<Post> {
 export default async function Page({ params }: { params: { slug: string } }) {
     const { postDetails, content } = await getPost(params.slug);
 
+    const isMobile = false;
+
     const { posts: recentPosts } = await posts.list(3);
 
     const jsonLd = {
@@ -135,17 +138,25 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 </div>
                 <p className={styles.excerpt}>{postDetails.excerpt}</p>
                 </Content>
-                <Content wider noMargin>
-                <div className={styles.postImage}>
-                    <Image 
-                        fill={true} 
-                        placeholder='blur' 
-                        blurDataURL={postDetails.imagePlaceholder}
-                        src={postDetails.imageUrl}
-                        sizes="(max-width: 800px) 100vw, 70vw"
-                        alt="Artikkelin kuva" />
-                </div>
-                </Content>
+                {!postDetails.feature_spline || isMobile ?
+                    <Content wider noMargin>
+                        <div className={styles.postImage}>
+                            <Image 
+                                fill={true} 
+                                placeholder='blur' 
+                                blurDataURL={postDetails.imagePlaceholder}
+                                src={postDetails.imageUrl}
+                                sizes="(max-width: 800px) 100vw, 70vw"
+                                alt="Artikkelin kuva" />
+                        </div>
+                    </Content>
+                : null}
+                {postDetails.feature_spline && !isMobile ? 
+                    <PostFeatured3D 
+                    splineURL={postDetails.feature_spline}
+                    placeholderBlurDataURL={postDetails.imagePlaceholder} 
+                    placeholderSrc={postDetails.imageUrl} />
+                : null}
                 <Content>
                 <div className={styles.postContent}>
                     {content}

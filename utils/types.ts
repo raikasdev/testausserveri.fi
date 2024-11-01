@@ -110,6 +110,7 @@ export type PostDetails = {
   title: string;
   category: string;
   feature_image: string;
+  feature_spline?: string;
   excerpt: string;
   authors?: string[];
   authorsResolved?: Member[];
