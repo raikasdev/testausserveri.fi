@@ -125,4 +125,5 @@ export type PostDetails = {
   feature_spline?: string;
   splineImagePlaceholderUrl?: string | null;
   splineImageUrl?: string | null;
+  splineUrl?: string | null;
 };

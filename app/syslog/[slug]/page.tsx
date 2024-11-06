@@ -160,7 +160,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 {hasSpline && !isMobile ? 
                     <PostFeatured3D 
                     // @ts-ignore
-                    splineURL={postDetails.feature_spline}
+                    splineURL={postDetails.splineUrl}
                     // @ts-ignore
                     placeholderBlurDataURL={postDetails.splineImagePlaceholderUrl} 
                     // @ts-ignore

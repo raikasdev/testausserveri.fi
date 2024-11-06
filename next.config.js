@@ -42,7 +42,7 @@ const config = {
     })
     const prefix = config.assetPrefix ?? config.basePath ?? '';
     config.module.rules.push({
-      test: /\.mp4$/,
+      test: /\.(mp4|splinecode)$/,
       use: [{
         loader: 'file-loader',
         options: {

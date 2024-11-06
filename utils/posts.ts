@@ -29,10 +29,14 @@ async function getPostDetails(fileName: string) {
 
     let splineImageUrl = null;
     let splineImagePlaceholderUrl = null;
+    let splineUrl = null;
     if (serialized.frontmatter.feature_spline_image) {
         const splineImage = require('../posts/' + slug + '/' + serialized.frontmatter.feature_spline_image).default; 
         splineImageUrl = splineImage.src;
         splineImagePlaceholderUrl = splineImage.blurDataURL;
+
+        const spline = require('../posts/' + slug + '/' + serialized.frontmatter.feature_spline).default; 
+        splineUrl = spline;   
     }
 
     const authorsResolved = await Promise.all((serialized.frontmatter.authors as string[]).map(async (id) => ({
@@ -40,7 +44,7 @@ async function getPostDetails(fileName: string) {
         _id: id || ""
     })));
 
-    return {...serialized.frontmatter, slug, readingTime, imagePlaceholder, imageUrl, splineImageUrl, splineImagePlaceholderUrl, authorsResolved } as PostDetails;
+    return {...serialized.frontmatter, slug, readingTime, imagePlaceholder, imageUrl, splineImageUrl, splineImagePlaceholderUrl, splineUrl, authorsResolved } as PostDetails;
 }
 
 /**
