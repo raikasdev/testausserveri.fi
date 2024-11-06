@@ -41,7 +41,10 @@ jobs:
 #      - name: Wait 5 minutes
 #        if: env.NEW_POST != ''
 #        run: sleep 300
-        
-      - name: Run Script
+                
+      - name: Send Webhook Notification
         if: env.NEW_POST != ''
-        run: npx tsx scripts/new-post-webhook.ts ${{ env.NEW_POST }}
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d "{\"content\": \"https://testausserveri.fi/syslog/${NEW_POST}\"}" $DISCORD_WEBHOOK_URL
