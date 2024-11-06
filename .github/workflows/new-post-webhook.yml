@@ -38,9 +38,9 @@ jobs:
         if: env.NEW_POST != ''
         run: npm install
         
-#      - name: Wait 5 minutes
-#        if: env.NEW_POST != ''
-#        run: sleep 300
+      - name: Wait 5 minutes
+        if: env.NEW_POST != ''
+        run: sleep 300
                 
       - name: Send Webhook Notification
         if: env.NEW_POST != ''
