@@ -14,12 +14,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+        with:
+          fetch-depth: 2 
+
       - name: Find New post.mdx Files
         id: check_new_files
         run: |
-          git fetch origin main
-          NEW_POST=$(git diff --name-only --diff-filter=A HEAD~1 HEAD | grep -o 'posts/[^/]*/post\.mdx' | sed 's|posts/\(.*\)/post\.mdx|\1|')
+          NEW_POST=$(git diff --name-only --diff-filter=A HEAD^ HEAD | grep -o 'posts/[^/]*/post\.mdx' | sed 's|posts/\(.*\)/post\.mdx|\1|' | tail -n 1)
           if [ -n "$NEW_POST" ]; then
             echo "NEW_POST=$NEW_POST" >> $GITHUB_ENV
             echo "new post: $NEW_POST"
