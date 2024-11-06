@@ -58,6 +58,7 @@
     "license-checker": "^25.0.1",
     "storybook": "^8.2.5",
     "storybook-css-modules-preset": "^1.1.1",
+    "tsx": "^4.19.2",
     "typescript": "^5.5.3"
   }
 }
